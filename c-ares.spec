@@ -2,15 +2,16 @@
 
 Summary: A library that performs asynchronous DNS operations
 Name: c-ares
-Version: 1.17.2
+Version: 1.34.6
 Release: 1%{?dist}
 License: MIT
 URL: http://c-ares.haxx.se/
-Source0: http://c-ares.haxx.se/download/%{name}-%{version}.tar.gz
+Source0: https://github.com/c-ares/c-ares/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # The license can be obtained at http://c-ares.haxx.se/license.html
 Source1: LICENSE
 Patch0: 0001-Use-RPM-compiler-options.patch
 BuildRequires: gcc
+Obsoletes: c-ares < %{version}-%{release}
 %if %{use_cmake}
 BuildRequires: cmake
 %else
@@ -28,6 +29,7 @@ by Greg Hudson at MIT.
 %package devel
 Summary: Development files for c-ares
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Obsoletes: c-ares-devel < %{version}-%{release}
 
 %description devel
 This package contains the header files and libraries needed to
@@ -82,6 +84,11 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libcares.la
 %{_mandir}/man3/ares_*
 
 %changelog
+* Fri Apr 24 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.34.6-1
+- Update to 1.34.6
+- Modernize spec for EL10
+- Use GitHub releases URL for Source0
+
 * Mon Aug 16 2021 Tom Callaway <spot@fedoraproject.org> - 1.17.2-1
 - update to 1.17.2
 - fixes multiple security issues including CVE-2021-3672
