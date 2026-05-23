@@ -60,7 +60,7 @@ autoreconf -if
 %cmake_install
 %else
 %make_install
-rm -f $RPM_BUILD_ROOT/%{_libdir}/libcares.la
+rm -f %{buildroot}/%{_libdir}/libcares.la
 %endif
 
 %ldconfig_scriptlets
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libcares.la
 %{_mandir}/man3/ares_*
 
 %changelog
+* Fri May 22 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.34.6-1
+- Fix spec violations: use %{buildroot}, %global for constants
+
 * Fri Apr 24 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.34.6-1
 - Update to 1.34.6
 - Modernize spec for EL10
