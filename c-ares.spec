@@ -5,7 +5,8 @@ Name: c-ares
 Version: 1.34.6
 Release: 1%{?dist}
 License: MIT
-URL: http://c-ares.haxx.se/
+URL: https://c-ares.haxx.se/
+ExclusiveArch: x86_64 aarch64
 Source0: https://github.com/c-ares/c-ares/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # The license can be obtained at http://c-ares.haxx.se/license.html
 Source1: LICENSE
@@ -52,7 +53,7 @@ f=CHANGES ; iconv -f iso-8859-1 -t utf-8 $f -o $f.utf8 ; mv $f.utf8 $f
 autoreconf -if
 %configure --enable-shared --disable-static \
            --disable-dependency-tracking
-%{__make} %{?_smp_mflags}
+%make_build
 %endif
 
 %install
@@ -84,6 +85,11 @@ rm -f %{buildroot}/%{_libdir}/libcares.la
 %{_mandir}/man3/ares_*
 
 %changelog
+* Thu Jul 03 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.34.6-1
+- Fix URL: http → https
+- Source0: GitHub release URL verified (1.34.6 is current)
+- ExclusiveArch: x86_64 aarch64; %%make_build
+
 * Fri May 22 2026 CasjaysDev <rpm-devel@casjaysdev.pro> - 1.34.6-1
 - Fix spec violations: use %{buildroot}, %global for constants
 
